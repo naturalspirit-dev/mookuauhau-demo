@@ -30,7 +30,7 @@ export default function DropDown({
   return (
       <div>
         <div className="dropdown">
-            <button onClick={() => setIsOpen(!isOpen)} className="dropbtn">{name}</button>
+            <button onClick={() => setIsOpen(!isOpen)} className="dropbtn">{!isOpen ? "˅" : "^"}  {name}  {!isOpen ? "˅" : "^"}</button>
             {isOpen ? 
                 <div id="myDropdown" className="dropdown-content">
                     <a href="#" onClick={() => onClick('td')}>td</a>
