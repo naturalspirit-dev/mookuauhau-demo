@@ -129,7 +129,7 @@ export default function Home() {
     }
   );
 
-  const [loadKanakaAscendants] = useLazyQuery(get_kanaka_ascendants, {
+  const [loadKanakaAscendants] = useLazyQuery(get_kanaka_ascendants, { //only works well with reac-force-graph radial visualization algorithms
       onCompleted: (data) => {
         subGraph = formatter.formatAscendantData(data);
         console.log("new asc subgraph: ", subGraph)
@@ -142,10 +142,6 @@ export default function Home() {
   );
 
   const handleDropDown = (o) => setAlgo(o);
-
-  useEffect(() => {
-    console.log("new graphData: ", graphData)
-  })
 
   return (
     <div>
