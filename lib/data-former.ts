@@ -126,10 +126,6 @@ class DataFormer {
     formatAscendantData = (data) => {
         if (!data.kanaka) return ReferenceError;
 
-        // let curTree = this.formatDescendantData(data);
-        // this.nodes = curTree.nodes;
-        // this.links = curTree.links;
-
         //namakua
         if(data.kanaka[0].namakua) {
             if(data.kanaka[0].namakua[0].ohana) {
