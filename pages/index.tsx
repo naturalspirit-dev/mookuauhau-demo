@@ -184,8 +184,6 @@ export default function Home() {
           nodeAutoColorBy={"__typename"}
           nodeLabel={"name"}
           graphData={graphData}
-          minZoom={3}
-          maxZoom={6}
           dagMode={algo}
           dagLevelDistance={40}
           onDagError={() => {return "DAG Error"}}
