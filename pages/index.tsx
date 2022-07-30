@@ -141,59 +141,80 @@ export default function Home() {
   const handleDropDown = (o) => setAlgo(o);
 
   return (
-    <div>
+    <div className="page">
       <div className="button-rack">
-        <Button
-          size={ButtonSize.Small}
-          customWidth="15rem"
-          onClick={() => loadKanakaDescendants({variables: {xref_id: "@I1749@"}})}
-          type="submit"
-        >Kamehameha I</Button>
+        <div className="button-container">
+          <Button
+            size={ButtonSize.Small}
+            customWidth="15rem"
+            onClick={() => loadKanakaDescendants({variables: {xref_id: "@I1749@"}})}
+            type="submit"
+            style={{margin: "8px"}}
+          >Kamehameha I</Button>
+        </div>
         <Spacer size={50} axis={"horizontal"} />
-        <Button
-          size={ButtonSize.Small}
-          customWidth="15rem"
-          onClick={() => loadKanakaDescendants({variables: {xref_id: "@I489@"}})}
-          type="submit"
-        >Kekaulike Kalani-kui-hono-i-ka-moku (King of Maui)</Button>
+        <div className="button-container">
+          <Button
+            size={ButtonSize.Small}
+            customWidth="15rem"
+            onClick={() => loadKanakaDescendants({variables: {xref_id: "@I489@"}})}
+            type="submit"
+          >Kekaulike Kalani-kui-hono-i-ka-moku (King of Maui)</Button>
+        </div>
         <Spacer size={50} axis={"horizontal"} />
-        <Button
-          size={ButtonSize.Small}
-          customWidth="15rem"
-          onClick={() => loadKanakaDescendants({variables: {xref_id: "@I21@"}})}
-          type="submit"
-        >Wakea</Button>
+        <div className="button-container">
+          <Button
+            size={ButtonSize.Small}
+            customWidth="15rem"
+            onClick={() => loadKanakaDescendants({variables: {xref_id: "@I21@"}})}
+            type="submit"
+          >Wakea</Button>
+        </div>
         <Spacer size={50} axis={"horizontal"} />
-        <DropDown 
-          name="Visualization Algo"
-          onClick={(e) => handleDropDown(e)}
-          width="15rem"
+        <div className="button-container">
+          <DropDown 
+            name="Visualization Algo"
+            onClick={(e) => handleDropDown(e)}
+            width="15rem"
+          />
+        </div>
+      </div>
+      <div className="canvas">
+        <ForceGraph
+          nodeAutoColorBy={"__typename"}
+          nodeLabel={"name"}
+          graphData={graphData}
+          minZoom={3}
+          maxZoom={6}
+          dagMode={algo}
+          dagLevelDistance={40}
+          onDagError={() => {return "DAG Error"}}
+          onNodeClick={(node: any, event) => {
+            console.log(node)
+            if (node.__typename === "kanaka") {
+              loadKanakaDescendants({ variables: {xref_id: node.id}});
+            }
+            if (node.index === 0) {
+              loadKanakaAscendants({ variables: {xref_id: node.id}});
+            }
+          }}
         />
       </div>
-      <ForceGraph
-        nodeAutoColorBy={"__typename"}
-        nodeLabel={"name"}
-        graphData={graphData}
-        minZoom={3}
-        maxZoom={6}
-        dagMode={algo}
-        dagLevelDistance={40}
-        onDagError={() => {return "DAG Error"}}
-        onNodeClick={(node: any, event) => {
-          console.log(node)
-          if (node.__typename === "kanaka") {
-            loadKanakaDescendants({ variables: {xref_id: node.id}});
-          }
-          if (node.index === 0) {
-            loadKanakaAscendants({ variables: {xref_id: node.id}});
-          }
-        }}
-      />
       <style jsx>{`
-        .button-rack {
-            display: flex;
+          .button-rack {
             padding: 15px;
             justify-content: center; 
+          }
+          .button-container {
+            margin: 5px;
+          }
+          .canvas {
+            float: right;
+          }
+          .page {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+          }
         `}
       </style>
     </div>
